@@ -1,4 +1,4 @@
-# 📝 Autonomous AI Research Assistant
+# 📝 Multi Agent Research Assistant
 
 An AI-powered research assistant that searches the web, synthesizes the findings into a clean Markdown report, and lets you download the result as a polished PDF — all through a simple Streamlit interface.
 
