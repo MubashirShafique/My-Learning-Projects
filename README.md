@@ -27,7 +27,7 @@ My-Learning-Projects/
 │   │
 │   ├── Agentic-AI-Projects/
 │   │   ├── ai-quiz-generator/
-│   │   ├── autonomous_ai_research_agent/
+│   │   ├── multi_agent_research_assistant/
 │   │   └── simple_langgraph_ai_agent/
 │   │
 │   ├── ChatBot/
