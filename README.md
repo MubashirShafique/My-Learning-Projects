@@ -18,7 +18,7 @@ This repository contains hands-on projects built using the following technologie
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```text
 My-Learning-Projects/
