@@ -1,4 +1,4 @@
-# My Learning Projects 🚀
+# My Learning Projects 
 
 ## 📖 About
 This repository serves as a central hub for my learning journey in AI and Software Development. It contains a curated collection of my basic to intermediate projects covering Machine Learning, Deep Learning, Generative AI, Agentic AI, AI Engineering, and Flutter development. Each project has its own dedicated README with setup instructions, implementation details, and usage guide.
