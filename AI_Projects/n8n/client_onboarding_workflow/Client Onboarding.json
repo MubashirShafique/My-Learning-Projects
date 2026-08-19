@@ -1,0 +1,440 @@
+{
+  "name": "Client Onboarding",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Welcome To Mubrix Technology",
+        "formDescription": "Please fill out the form below to get in touch with Mubrix Technology",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name ",
+              "placeholder": "Mubashir",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "abc@gmail.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Company Name ",
+              "placeholder": "Google .etc ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Required Service ",
+              "placeholder": "Web dev , Mobile dev ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mobile Number ",
+              "fieldType": "number",
+              "placeholder": "03222222222",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Starting Date ",
+              "fieldType": "date",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -432,
+        -32
+      ],
+      "id": "641b603b-f085-4aba-bed2-5c55a5ba47e0",
+      "name": "On form submission",
+      "webhookId": "ce90e811-7ba5-481d-b383-7c49ce392da8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba373912-9445-4c4f-9ff9-73d439eec89a",
+              "name": "Name ",
+              "value": "={{ $json['Full Name '] }}",
+              "type": "string"
+            },
+            {
+              "id": "6f0a46c5-3445-4b7b-8fdd-acb9438285d3",
+              "name": "Email",
+              "value": "={{ $json.Email }}",
+              "type": "string"
+            },
+            {
+              "id": "b02ec18a-36d8-4c53-96f4-e12d1fb6cf57",
+              "name": "Company Name ",
+              "value": "={{ $json['Company Name '] }}",
+              "type": "string"
+            },
+            {
+              "id": "d91b0791-366e-4317-ae3f-b9ace0bae16d",
+              "name": "Required Service ",
+              "value": "={{ $json['Required Service '] }}",
+              "type": "string"
+            },
+            {
+              "id": "d29699d6-3674-40e7-8c93-eb863cb418d7",
+              "name": "Mobile Number ",
+              "value": "={{ $json['Mobile Number '] }}",
+              "type": "number"
+            },
+            {
+              "id": "b1291835-0d97-4b1f-9e58-e69c6527909b",
+              "name": "Starting Date ",
+              "value": "={{ $json['Starting Date '] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -272,
+        -32
+      ],
+      "id": "f57938b3-8ddc-47a2-88a1-d129c5ab8a71",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Please generate a warm and professional welcome email for a new client from Mubrix Technology (an agency providing advanced Tech and Agentic AI solutions).\n\nSender Details:\n- Agency Name: Mubrix Technology\n- Owner Name: Muhammad Mubashir Shafique\n\nClient Details:\n- Name: {{ $json['Name '] }}\n- Company/Industry: {{ $json['Company Name '] }}\n- Required Service: {{ $json['Required Service '] }}\n- Preferred Start Date: {{ $json['Starting Date '] }}\n\nGuidelines:\n- Tone: Professional, welcoming, and friendly.\n- Subject line must be simple, clean, and welcoming (e.g., \"Welcome to Mubrix Technology!\" or \"Welcome to Mubrix Technology, {{ $json['Name '] }}!\").\n- Express excitement about collaborating and helping their business grow with our solutions.\n- Acknowledge their preferred start date and state that our team will reach out shortly with the next steps.\n- Mention that they will receive a separate email containing the Terms of Service agreement.\n- Politely inform them not to reply to this automated email.\n- Keep the format clean with separate Subject and Body sections.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -64,
+        -240
+      ],
+      "id": "36ce95bd-6c5a-4a6e-9ac6-9003757da079",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        -80
+      ],
+      "id": "68e95204-cb24-4758-82a3-6151feee5a7f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VQVDso78pcB5JQZt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Parse the Json \"output\" and output the following parameter separately \n\nSubject \nBody"
+            },
+            {
+              "content": "={{ $json.output }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"subject\": {\n      \"type\": \"string\",\n      \"description\" : \"the achual subject of the email\"\n    },\n    \"body\":{\n      \"type\":\"string\",\n    \"description\":\"the content of the full email, without subject \"\n    }\n  },\n  \"additionalProperties\": false,\n  \"required\": [\"subject\",\"body\"]\n}"
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        288,
+        -256
+      ],
+      "id": "a13eb69f-99bb-47c1-9321-2e1895e624cf",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VQVDso78pcB5JQZt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields').item.json.Email }}",
+        "subject": "={{ $json.output[0].content[0].text.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.output[0].content[0].text.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        -192
+      ],
+      "id": "69908eff-4aac-42e7-ae37-3f1430f7fb0d",
+      "name": "Send a message",
+      "webhookId": "f6cf4672-fd0a-44f2-8605-021b576372f1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "v3WzWRNDx5aHIqoA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Please generate a clear, professional email for our Terms of Service & Contract Agreement from Mubrix Technology.\n\nSender Details:\n- Agency Name: Mubrix Technology\n- Owner Name: Muhammad Mubashir Shafique\n- Owner Email: 1bc@gmail.com\n- Owner Phone: 03222222222\n\nClient Details:\n- Name: {{ $json['Name '] }}\n- Company/Industry: {{ $json['Company Name '] }}\n- Required Service: {{ $json['Required Service '] }}\n- starting Date :{{ $json['Starting Date '] }}\n\nGuidelines:\n- Tone: Formal, direct, and professional.\n- Subject line: \"Important: Terms of Service & Service Agreement - Mubrix Technology\".\n- Share the agreement details regarding the requested service ({{ $json['Required Service '] }}).\n- Mention that they must review and accept the terms before project onboarding begins.\n- Clearly provide the Owner's contact info (Email: 1bc@gmail.com, Phone: 03222222222) if they have any questions or require custom terms.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        16,
+        240
+      ],
+      "id": "1aef35d1-b82a-4cad-b5c1-6f8899972407",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        432
+      ],
+      "id": "6290635a-9324-44d5-b9d4-bd32b6915504",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "VQVDso78pcB5JQZt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Parse the Json \"output\" and output the following parameter separately \n\nSubject \nBody"
+            },
+            {
+              "content": "={{ $json.output }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_schema",
+              "schema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"description\" : \"extract only the title field\"\n    },\n    \"body\":{\n      \"type\":\"string\",\n    \"description\":\"combine all other fields into a single text block and formate it like an official contract (e.g NDA or term of Service)\"\n    }\n  },\n  \"additionalProperties\": false,\n  \"required\": [\"title\",\"body\"]\n}"
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        384,
+        240
+      ],
+      "id": "ef7c07c9-9ae7-4e5e-9614-3d648df991d2",
+      "name": "Message a model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "VQVDso78pcB5JQZt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields').item.json.Email }}",
+        "subject": "={{ $json.output[0].content[0].text.title }}",
+        "emailType": "text",
+        "message": "={{ $json.output[0].content[0].text.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        240
+      ],
+      "id": "5502e2b4-f2f0-425f-9463-0ca0ccf1e807",
+      "name": "Send a message1",
+      "webhookId": "d68210af-da2f-4b58-a923-390c8e460e2c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "v3WzWRNDx5aHIqoA",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1744f2cf-46bb-476c-b56f-fb849c31ccd6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0cef134270f74b624fa1a991b0f6a15ebba55f9c8164b8e00fed19a558f66882"
+  },
+  "nodeGroups": [],
+  "id": "XEzoG1sRi1wZnPO3",
+  "tags": []
+}
