@@ -1,7 +1,7 @@
 # My Learning Projects 
 
 ## 📖 About
-This repository serves as a central hub for my learning journey in AI and Software Development. It contains a curated collection of my basic to intermediate projects covering Machine Learning, Deep Learning, Generative AI, Agentic AI, AI Engineering, and Flutter development. Each project has its own dedicated README with setup instructions, implementation details, and usage guide.
+This repository serves as a central hub for my learning journey in AI and Software Development. It contains a curated collection of my basic to intermediate projects covering Machine Learning, Deep Learning, Generative AI, Agentic AI, AI Engineering, n8n Automation, and Flutter development. Each project has its own dedicated README with setup instructions, implementation details, and usage guide.
 
 ---
 
@@ -15,6 +15,7 @@ This repository contains hands-on projects built using the following technologie
 *   **Agentic AI:** Developing autonomous AI agents capable of reasoning and executing tasks.
 *   **AI Engineering:** Deploying models, managing APIs, and creating end-to-end AI pipelines.
 *   **Flutter Mobile Development:** Building mobile applications integrated with smart features.
+*   **Workflow Automation (n8n):** Designing automated pipelines, API integrations, and connecting AI-powered workflows.
 
 ---
 
@@ -41,11 +42,16 @@ My-Learning-Projects/
 │   │   └── RNN/
 │   │       └── IMDB_Sentiment_Analysis/
 │   │
-│   └── Machine_Learning/
-│       ├── Insurance Premium Category Predictor/
-│       ├── Job_Salary_Prediction_/
-│       ├── Spam Classifier ML Pipeline (DVC)/
-│       └── placement_predictor/
+│   ├── Machine_Learning/
+│   │   ├── Insurance Premium Category Predictor/
+│   │   ├── Job_Salary_Prediction_/
+│   │   ├── Spam Classifier ML Pipeline (DVC)/
+│   │   └── placement_predictor/
+│   │
+│   │
+│   └── n8n/
+│        ├── client_onboarding_workflow/
+│
 │
 ├── Flutter-Mobile-Apps/
 │   ├── Calculator_App/
