@@ -51,6 +51,7 @@ My-Learning-Projects/
 │   │
 │   └── n8n/
 │        ├── client_onboarding_workflow/
+|        ├── Customer Support Assistant/
 │
 │
 ├── Flutter-Mobile-Apps/
